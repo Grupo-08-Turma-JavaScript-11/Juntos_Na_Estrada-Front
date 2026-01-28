@@ -6,6 +6,6 @@ export default interface Carona {
     enderecoDestino: string,
     tempo: number,
     vagas: number,
-    //categoria: Categoria,
-    //usuario: Usuario
+    categoria: Object,
+    usuario: Object
 }

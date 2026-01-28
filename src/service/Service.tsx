@@ -1,7 +1,7 @@
 import axios from 'axios'; 
 
 const api = axios.create({
-    baseURL: ' '
+    baseURL: 'https://juntos-na-estrada.onrender.com/'
 });
 
 export const cadastrarUsuario = async (url: string, dados: object, setDados: Function) => {
@@ -14,21 +14,21 @@ export const login = async (url: string, dados: object, setDados: Function) => {
     setDados(resposta.data);
 }
 
-export const buscar = async (url: string, setDados: Function, header: object) => {
-    const resposta = await api.get(url, header)
+export const buscar = async (url: string, setDados: Function) => {
+    const resposta = await api.get(url)
     setDados(resposta.data)
 }
 
-export const cadastrar = async (url: string, dados: Object, setDados: Function, header: Object) => {
-    const resposta = await api.post(url, dados, header)
+export const cadastrar = async (url: string, dados: Object, setDados: Function) => {
+    const resposta = await api.post(url, dados)
     setDados(resposta.data)
 }
 
-export const atualizar = async (url: string, dados: Object, setDados: Function, header: Object) => {
-    const resposta = await api.put(url, dados, header)
+export const atualizar = async (url: string, dados: Object, setDados: Function) => {
+    const resposta = await api.put(url, dados)
     setDados(resposta.data)
 }
 
-export const deletar = async (url: string, header: Object) => {
-    await api.delete(url, header)
+export const deletar = async (url: string) => {
+    await api.delete(url)
 }
