@@ -6,8 +6,8 @@ import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { ClipLoader } from "react-spinners";
 import MapCard from "../../mapa/cardmapa/CardMapa";
 
-function DeletarCarona() {
-  //const navigate = useNavigate();
+function DeletarCarona({ onClose }: { onClose?: () => void }) {
+  const navigate = useNavigate();
 
   const [carona, setCarona] = useState<Carona>({} as Carona);
 
@@ -35,7 +35,7 @@ function DeletarCarona() {
     try {
       await deletar(`/caronas/${id}`);
       ToastAlerta("Carona deletada com sucesso", "sucesso");
-      //retornar(); // só volta se deu certo
+      retornar(); // só volta se deu certo
     } catch (error: any) {
       ToastAlerta("Erro ao deletar a Carona.", "erro");
     } finally {
@@ -43,9 +43,9 @@ function DeletarCarona() {
     }
   }
 
-  /*function retornar() {
+  function retornar() {
     navigate("/caronas");
-  }*/
+  }
 
   return (
     <div className="container w-1/2 mx-auto">
@@ -74,6 +74,7 @@ function DeletarCarona() {
 
           <button
             type="button"
+            onClick={() => onClose?.()}
             className="text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2"
             
           >

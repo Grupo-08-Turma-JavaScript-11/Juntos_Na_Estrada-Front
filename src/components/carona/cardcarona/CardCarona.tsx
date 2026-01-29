@@ -20,7 +20,7 @@ function CardCarona({ carona }: CardCaronaProps) {
     
         <div className="flex flex-col p-4">
           <div className="text-2xl font-bold flex justify-between text-[#374151] pb-3">
-            <span>Wesley - Tesla premium</span>
+            <span>{carona.usuario.nome.substring(0, 12)} - {carona.categoria.descricao}</span>
             <Link to={`/editarcaronas/${carona.id}`}><PencilSimpleIcon size={20} /></Link>
             
           </div>
