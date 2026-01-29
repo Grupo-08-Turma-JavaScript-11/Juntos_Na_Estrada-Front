@@ -8,11 +8,19 @@ import ModalDeletarCarona from "../modaldeletarcarona/ModalDeletarCarona";
 import type Usuario from "../../../models/Usuario";
 import type Categoria from "../../../models/Categoria";
 
+import {
+  MapPin,
+  Navigation,
+  Gauge,
+  Users,
+  User,
+  Car
+} from "lucide-react";
+
 function FormCarona() {
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [carona, setCarona] = useState<Carona>({} as Carona);
 
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
@@ -23,90 +31,45 @@ function FormCarona() {
 
   const { id } = useParams<{ id: string }>();
 
-  //const [localizacao, setLocalizacao] = useState<Localizacao>();
-
-  //const { cep } = useParams<{ cep: string }>();
-
   async function buscarCaronasPorId(id: string) {
     setIsLoading(true);
     try {
       await buscar(`/caronas/${id}`, setCarona);
-    } catch (error: any) {
-      ToastAlerta("Erro ao buscar a categoria.", "erro");
+    } catch {
+      ToastAlerta("Erro ao buscar a viagem.", "erro");
     }
     setIsLoading(false);
   }
 
-  async function buscarUsuarioPorId(id: string) {
-    try {
-      await buscar(`/usuarios/${id}`, setUsuario);
-    } catch (error: any) {
-      ToastAlerta("Erro ao buscar o usuario.", "erro");
-    }
-  }
-
   async function buscarUsuarios() {
-    try {
-      await buscar(`/usuarios`, setUsuarios);
-    } catch (error: any) {
-      ToastAlerta("Erro ao buscar os usuarios.", "erro");
-    }
-  }
-
-  async function buscarCategoriaPorId(id: string) {
-    try {
-      await buscar(`/categorias/${id}`, setCategoria);
-    } catch (error: any) {
-      ToastAlerta("Erro ao buscar a categoria.", "erro");
-    }
+    await buscar(`/usuarios`, setUsuarios);
   }
 
   async function buscarCategorias() {
-    try {
-      await buscar(`/categorias`, setCategorias);
-    } catch (error: any) {
-      ToastAlerta("Erro ao buscar as categorias.", "erro");
-    }
+    await buscar(`/categorias`, setCategorias);
+  }
+
+  async function buscarUsuarioPorId(id: string) {
+    await buscar(`/usuarios/${id}`, setUsuario);
+  }
+
+  async function buscarCategoriaPorId(id: string) {
+    await buscar(`/categorias/${id}`, setCategoria);
   }
 
   useEffect(() => {
     buscarUsuarios();
     buscarCategorias();
-    if (id !== undefined) {
-      buscarCaronasPorId(id);
-    }
+    if (id) buscarCaronasPorId(id);
   }, [id]);
 
   useEffect(() => {
-    setCarona({
-      ...carona,
-      usuario: usuario,
-    });
+    setCarona((prev) => ({ ...prev, usuario }));
   }, [usuario]);
 
   useEffect(() => {
-    setCarona({
-      ...carona,
-      categoria: categoria,
-    });
+    setCarona((prev) => ({ ...prev, categoria }));
   }, [categoria]);
-
-  /*async function buscarCep(cep: string) {
-        try {
-            setIsLoading(true);
-            const resposta = await buscar(cep, setLocalizacao);
-
-        } catch (error) {
-            console.log(error);
-        }
-        setIsLoading(false);
-    }
-
-    useEffect(() => {
-    if (cep !== undefined) {
-      buscarCep(cep);
-    }
-  }, [cep]);*/
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setCarona({
@@ -123,146 +86,139 @@ function FormCarona() {
     e.preventDefault();
     setIsLoading(true);
 
-    if (id !== undefined) {
-      try {
+    try {
+      if (id) {
         await atualizar(`/caronas`, carona, setCarona);
-        ToastAlerta("A Caronas foi atualizado com sucesso!", "sucesso");
-        retornar();
-      } catch (error: any) {
-        ToastAlerta("Erro ao atualizar a Categoria.", "erro");
-      }
-    } else {
-      try {
-        console.log(carona);
+        ToastAlerta("Viagem atualizada com sucesso!", "sucesso");
+      } else {
         await cadastrar(`/caronas`, carona, setCarona);
-        ToastAlerta("A Caronas foi cadastrado com sucesso!", "sucesso");
-        retornar();
-      } catch (error: any) {
-        ToastAlerta("Erro ao cadastrar a Caronas.", "erro");
+        ToastAlerta("Viagem cadastrada com sucesso!", "sucesso");
       }
+      retornar();
+    } catch {
+      ToastAlerta("Erro ao salvar a viagem.", "erro");
     }
 
     setIsLoading(false);
   }
 
+  const campos = [
+    { label: "Origem (CEP)", name: "enderecoOrigem", icon: <MapPin size={18} /> },
+    { label: "Destino (CEP)", name: "enderecoDestino", icon: <Navigation size={18} /> },
+    { label: "Distância (Km)", name: "distancia", icon: <Gauge size={18} /> },
+    { label: "Velocidade (Km/h)", name: "velocidade", icon: <Gauge size={18} /> },
+    { label: "Vagas", name: "vagas", icon: <Users size={18} /> },
+  ];
+
   return (
-    <div className="container flex flex-col items-center justify-center mx-auto">
-      <h1 className="text-4xl text-center my-8">
-        {id === undefined ? "Cadastrar Viagem" : "Editar Viagem"}
-      </h1>
+    <section className="relative min-h-screen flex items-center justify-center px-6 font-sans overflow-hidden">
 
-      <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovaCarona}>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="enderecoOrigem">Origem da Viagem</label>
-          <input
-            type="text"
-            placeholder="CEP(00000-000)"
-            name="enderecoOrigem"
-            className="border-2 border-slate-700 rounded p-2"
-            value={carona.enderecoOrigem}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="enderecoDestino">Destino da Viagem</label>
-          <input
-            type="text"
-            placeholder="CEP(00000-000)"
-            name="enderecoDestino"
-            className="border-2 border-slate-700 rounded p-2"
-            value={carona.enderecoDestino}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="distancia">Distancia da Viagem</label>
-          <input
-            type="text"
-            placeholder="Km"
-            name="distancia"
-            className="border-2 border-slate-700 rounded p-2"
-            value={carona.distancia}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="velocidade">Velocidade da Via</label>
-          <input
-            type="text"
-            placeholder="Km/h"
-            name="velocidade"
-            className="border-2 border-slate-700 rounded p-2"
-            value={carona.velocidade}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="vagas">Vagas no veiculo</label>
-          <input
-            type="text"
-            placeholder="Quantos assentos?"
-            name="vagas"
-            className="border-2 border-slate-700 rounded p-2"
-            value={carona.vagas}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-          />
-        </div>
+      {/* FUNDO */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#F9A8D4] via-[#FDBA74] to-[#F37021]" />
+      <div className="absolute inset-0 bg-black/10" />
 
-        <div className="flex flex-col gap-2">
-          <p>Motoristas</p>
-          <select
-            name="tema"
-            id="tema"
-            className="border p-2 border-slate-800 rounded"
-            onChange={(e) => buscarUsuarioPorId(e.currentTarget.value)}
-          >
-            <option value="" selected disabled>
-              Selecione um Usuario
-            </option>
+      {/* BRILHOS */}
+      <div className="absolute -top-32 -left-32 h-[420px] w-[420px] rounded-full bg-white/20 blur-[140px]" />
+      <div className="absolute top-1/2 right-0 h-[420px] w-[420px] rounded-full bg-[#1E3A8A]/10 blur-[140px]" />
 
-            {usuarios.map((usuario) => (
-              <>
-                <option value={usuario.id}>{usuario.nome}</option>
-              </>
-            ))}
-          </select>
-        </div>
+      <div className="relative z-10 grid place-items-center w-full max-w-xl backdrop-blur-md">
 
-        <div className="flex flex-col gap-2">
-          <p>Categoria do veiculo</p>
-          <select
-            name="categoria"
-            id="categoria"
-            className="border p-2 border-slate-800 rounded"
-            onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
-          >
-            <option value="" selected disabled>
-              Selecione uma categoria
-            </option>
+        <form
+          onSubmit={gerarNovaCarona}
+          className="w-full rounded-3xl  p-10 flex flex-col gap-5"
+        >
+          <h1 className="text-4xl font-black text-[#1E3A8A] text-center mb-4">
+            {id ? "Editar Viagem" : "Cadastrar Viagem"}
+          </h1>
 
-            {categorias.map((categoria) => (
-              <>
-                <option value={categoria.id}>{categoria.descricao}</option>
-              </>
-            ))}
-          </select>
-        </div>
-        <div className="flex">
-          <button
-            className="rounded text-slate-100 bg-indigo-400 
-                               hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center"
-            type="submit"
-          >
-            {isLoading ? (
-              <ClipLoader color="#ffffff" size={24} />
-            ) : (
-              <span>{id === undefined ? "Cadastrar" : "Atualizar"}</span>
-            )}
-          </button>
-          {id === undefined ? "" : <ModalDeletarCarona />}
-        </div>
-      </form>
-    </div>
+          {campos.map((field) => (
+            <div key={field.name} className="flex flex-col gap-1.5">
+              <label className="text-sm font-semibold text-[#1E3A8A]">
+                {field.label}
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                  {field.icon}
+                </span>
+                <input
+                  type="text"
+                  name={field.name}
+                  value={(carona as any)[field.name] || ""}
+                  onChange={atualizarEstado}
+                  className="w-full pl-10 pr-3 py-3 border bg-white border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F37021]"
+                />
+              </div>
+            </div>
+          ))}
+
+          {/* Motorista */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-semibold text-[#1E3A8A]">Motorista</label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <User size={18} />
+              </span>
+              <select
+                className="w-full pl-10 pr-3 py-3 border bg-white border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F37021]"
+                onChange={(e) => buscarUsuarioPorId(e.currentTarget.value)}
+                defaultValue=""
+              >
+                <option value="" disabled>Selecione um usuário</option>
+                {usuarios.map((u) => (
+                  <option key={u.id} value={u.id}>{u.nome}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Categoria */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-semibold text-[#1E3A8A]">Categoria do veículo</label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <Car size={18} />
+              </span>
+              <select
+                className="w-full pl-10 pr-3 py-3 border bg-white border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F37021]"
+                onChange={(e) => buscarCategoriaPorId(e.currentTarget.value)}
+                defaultValue=""
+              >
+                <option value="" disabled>Selecione uma categoria</option>
+                {categorias.map((c) => (
+                  <option key={c.id} value={c.id}>{c.descricao}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Botões */}
+          <div className="flex gap-4 mt-8 justify-center">
+            <button
+              type="button"
+              onClick={retornar}
+              className="w-1/2 py-3 rounded-full bg-slate-300 hover:bg-slate-400 font-bold transition"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-1/2 py-3 rounded-full bg-[#F37021] hover:bg-[#d65d18] text-white font-black flex justify-center items-center transition"
+            >
+              {isLoading ? <ClipLoader color="#fff" size={22} /> : id ? "Atualizar" : "Cadastrar"}
+            </button>
+          </div>
+
+          {id && (
+            <div className="flex justify-center mt-4">
+              <ModalDeletarCarona />
+            </div>
+          )}
+
+        </form>
+      </div>
+    </section>
   );
 }
 

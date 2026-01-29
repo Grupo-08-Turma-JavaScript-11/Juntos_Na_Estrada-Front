@@ -1,55 +1,67 @@
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between px-8 md:px-20 py-8 bg-[#1E3A8A] text-white sticky top-0 z-[100] font-sans shadow-lg">
-      
-      {/* lado esquerdo: logo padrao */}
-      <div className="flex items-center gap-3">
-        {/* icone com a cor Coral do projeto */}
-        <div className="bg-[#F37021] p-600 rounded-600xl text-2xl shadow-lg">
-        </div>
-                <h2 className="text-3xl font-black">
-          Juntos na Estrada
-        </h2>
+    <nav className="
+      flex items-center justify-between
+      h-24 px-8 md:px-20 py-10
+      bg-[#1E3A8A] text-white
+      sticky top-0 z-[100]
+      font-sans shadow-lg
+    ">
+
+      {/* Lado esquerdo */}
+      <div className="flex items-center gap-4">
+
+        {/* Ícone */}
+        <div className="bg-[#F37021] p-3 rounded-full text-2xl shadow-lg"></div>
+
+        <Link to="/">
+          <h2 className="text-4xl font-black tracking-tight">
+            Juntos na Estrada
+          </h2>
+        </Link>
+
       </div>
 
-      {/* lado direito: links e botao*/}
-      <div className="flex items-center justify-end gap-10 flex-1">
+      {/* Lado direito */}
+      <div className="flex items-center justify-end gap-10">
 
-        {/* links para acesso a outras paginas */}
+        {/* Links */}
         <ul className="hidden md:flex items-center gap-10">
           <li>
-            <button className="hover:text-[#F37021] transition-colors text-base font-bold tracking-tight whitespace-nowrap">
-              Solicitar Viagem
-            </button>
+            <Link to="/cadastrarcaronas">
+              <button className="hover:text-[#F37021] transition-colors text-lg font-bold whitespace-nowrap">
+                Solicitar Viagem
+              </button>
+            </Link>
           </li>
+
           <li>
-            <button className="hover:text-[#F37021] transition-colors text-base font-bold tracking-tight whitespace-nowrap">
-              Minhas Viagens
-            </button>
+            <Link to="/caronas">
+              <button className="hover:text-[#F37021] transition-colors text-lg font-bold whitespace-nowrap">
+                Minhas Viagens
+              </button>
+            </Link>
           </li>
         </ul>
 
-        {/* botao cadastrar */}
+        {/* Botão Login */}
+        <Link to="/login">
+          <button
+            className="
+              rounded-full bg-[#F37021]
+              px-8 py-4 min-w-[220px]
+              text-xl font-black text-white
+              shadow-lg hover:bg-[#d65d18]
+              transition-all hover:-translate-y-1 active:scale-95
+            "
+          >
+            Login
+          </button>
+        </Link>
+      </div>
 
-           {/* botao solicitar viagem */}
-            <button 
-              className="
-                rounded-full bg-[#F37021] 
-                px-3 py-3 min-w-[300px]
-                text-xl font-black text-white 
-                shadow-1x2 hover:bg-[#d65d18] 
-                transition-all hover:-translate-y-1 active:scale-95
-              "
-            >
-                
-           Login
-            </button>
-         
-    
-        
-        </div>
-
-   
     </nav>
   );
 }

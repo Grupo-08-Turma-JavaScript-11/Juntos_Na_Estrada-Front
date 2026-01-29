@@ -4,12 +4,11 @@ import type Categoria from "../../../models/Categoria";
 import { buscar } from "../../../service/Service";
 
 function ListaCategoria() {
-
   const [categorias, setCategoria] = useState<Categoria[]>([]);
 
   useEffect(() => {
     buscarCategoria();
-  }, [categorias]);
+  }, []);
 
   async function buscarCategoria() {
     try {
@@ -22,20 +21,42 @@ function ListaCategoria() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-blue-600 via-blue-500 to-emerald-400 p-8">
-    <div className="grid flex items-center justify-center w-full ">
-      <div className="flex font-bold text-[30px] w-full items-center justify-center pb-4">
-        <h1> Lista Categorias</h1>
-      </div>
-      <div className="container flex flex-col ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ">
+    <div className="relative min-h-screen flex items-center justify-center px-6 font-sans overflow-hidden">
+
+      {/* FUNDO */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#F9A8D4] via-[#FDBA74] to-[#F37021]" />
+      <div className="absolute inset-0 bg-black/10" />
+
+      {/* BRILHOS */}
+      <div className="absolute -top-32 -left-32 h-[420px] w-[420px] rounded-full bg-white/20 blur-[140px]" />
+      <div className="absolute top-1/2 right-0 h-[420px] w-[420px] rounded-full bg-[#1E3A8A]/10 blur-[140px]" />
+
+      {/* CARD CONTAINER */}
+      <div className="w-full max-w-6xl backdrop-blur-md rounded-3xl p-8 sm:p-12">
+
+        {/* TÍTULO */}
+        <h1 className="text-4xl font-black text-[#1E3A8A] text-center ">
+          Lista de Categorias
+        </h1>
+
+        {/* GRID DE CARDS */}
+        <div className="flex justify-center gap-10
+            mb-12 px-8 py-12">
           {categorias.map((categoria) => (
             <CardCategoria key={categoria.id} categoria={categoria} />
           ))}
         </div>
+
+        {/* VAZIO */}
+        {categorias.length === 0 && (
+          <p className="text-center text-[#1E3A8A]/70 mt-10 font-medium">
+            Nenhuma categoria cadastrada.
+          </p>
+        )}
+
       </div>
-    </div>
-    </div>
+      </div>
+
   );
 }
 
