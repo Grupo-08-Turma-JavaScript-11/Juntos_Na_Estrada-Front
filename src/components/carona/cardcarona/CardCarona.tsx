@@ -27,6 +27,7 @@ function CardCarona({ carona }: CardCaronaProps) {
           <div className=" text-lg   text-[#374151]">
             <p>Destino: {carona.enderecoDestino}</p>
             <p>Vagas disponiveis: {carona.vagas} </p>
+            <p>Tempo de viagem: {carona.tempo} </p>
             
           </div>
           <div className="flex justify-center pt-5">
