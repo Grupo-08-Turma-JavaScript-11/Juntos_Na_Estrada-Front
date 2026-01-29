@@ -14,10 +14,10 @@ export default function Footer() {
             <h2 className="text-2xl font-black tracking-tight text-[#F37021]">
               Juntos na Estrada
             </h2>
-            <p className="text-white/90 text-sm leading-relaxed font-medium">
+            <p className="text-white/90 text-sm leading-relaxed font-medium font-bold ">
               Sua jornada começa com segurança e termina com satisfação.
             </p>
-            <p className="text-white/90 text-sm leading-relaxed font-medium">
+            <p className="text-white/90 text-sm leading-relaxed font-medium font-bold">
               O melhor serviço de transporte privado da região.
             </p>
           </div>
@@ -28,7 +28,7 @@ export default function Footer() {
               Links Rápidos
             </h3>
             <ul className="space-y-2 text-sm font-bold text-white">
-              <Link to='/categorias'><li className="hover:text-[#F37021] transition-colors cursor-pointer">Categorias</li></Link>
+              <Link to="/cadastrarcategorias"><li className="hover:text-[#F37021] transition-colors cursor-pointer">Criar Categorias</li></Link>
               <li className="hover:text-[#F37021] transition-colors cursor-pointer">Minhas Viagens</li>
               <li className="hover:text-[#F37021] transition-colors cursor-pointer">Solicitar Viagem</li>
             </ul>

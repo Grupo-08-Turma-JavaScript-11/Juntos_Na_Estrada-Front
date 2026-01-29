@@ -36,7 +36,7 @@ function ListarCaronas() {
       <div className="absolute top-1/2 right-0 h-[420px] w-[420px] rounded-full bg-[#1E3A8A]/10 blur-[140px]" />
 
       {/* CONTAINER PRINCIPAL */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col justify-between items-center py-16">
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col space-between items-center py-16">
 
         {/* TÍTULO */}
         <div className="text-center max-w-2xl mb-14 px-4">
@@ -50,7 +50,7 @@ function ListarCaronas() {
 
         {/* LOADING */}
         {isLoading && (
-          <div className="flex justify-center my-12">
+          <div className="flex flex-cols justify-center m-12">
             <SyncLoader color="#1E3A8A" size={16} />
           </div>
         )}
@@ -76,6 +76,7 @@ function ListarCaronas() {
         )}
 
       </div>
+      
     </section>
   );
 }

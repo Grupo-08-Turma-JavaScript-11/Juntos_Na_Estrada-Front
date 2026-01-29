@@ -4,104 +4,119 @@ import { useNavigate, useParams } from "react-router-dom";
 import { atualizar, buscar, cadastrar } from "../../../service/Service";
 
 function FormCategorias() {
+  const [categoria, setCategoria] = useState<Categoria>({} as Categoria);
 
-    const [categoria, setCategoria] = useState<Categoria>({} as Categoria)
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
-    const navigate = useNavigate()
-
-    const {id} =  useParams<{id: string}>()
-
-    async function buscarPorId(id: string) {
-        try{
-            await buscar(`/categorias/${id}`, setCategoria)
-        }catch (error: any){
-            if (error.toString().includes('404')){
-                alert("Categoria não encontrado!")
-            }
-        }
+  async function buscarPorId(id: string) {
+    try {
+      await buscar(`/categorias/${id}`, setCategoria);
+    } catch (error: any) {
+      if (error.toString().includes("404")) {
+        alert("Categoria não encontrada!");
+      }
     }
+  }
 
-    useEffect(() => {
-        if (id !== undefined){
-            buscarPorId(id)
-        }
-    }, [id])
-
-    function retornar() {
-        navigate("/categorias")
+  useEffect(() => {
+    if (id !== undefined) {
+      buscarPorId(id);
     }
+  }, [id]);
 
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement>){
-        setCategoria({
-            ...categoria,
-            [e.target.name]: e.target.value
-        })
+  function retornar() {
+    navigate("/categorias");
+  }
+
+  function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+    setCategoria({
+      ...categoria,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  async function gerarNovaCategoria(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    try {
+      if (id !== undefined) {
+        await atualizar(`/categorias`, categoria, setCategoria);
+        alert("Categoria atualizada com sucesso!");
+      } else {
+        await cadastrar(`/categorias`, categoria, setCategoria);
+        alert("Categoria cadastrada com sucesso!");
+      }
+      retornar();
+    } catch {
+      alert("Erro ao salvar categoria.");
     }
+  }
 
+  return (
+    <section className="relative min-h-screen flex items-center justify-center px-6 font-sans overflow-hidden">
 
-    async function gerarNovaCategoria(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault()
+      {/* FUNDO */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#F9A8D4] via-[#FDBA74] to-[#F37021]" />
+      <div className="absolute -top-32 -left-32 h-[420px] w-[420px] rounded-full bg-white/20 blur-[140px]" />
+      <div className="absolute top-1/2 right-0 h-[420px] w-[420px] rounded-full bg-[#1E3A8A]/10 blur-[140px]" />
 
-        if (id !== undefined){
-            try{
-                await atualizar(`/categorias`, categoria, setCategoria)
-                alert("O Categoria foi atualizado com sucesso!")
-            }catch (error: any) {
-                if (error.toString().includes('403')){
-                    alert("Categoria não encontrado!")
-                }else {
-                    alert("Erro ao localizar categoria")
-                }
-            }
-        } else {
-            try {
-                await cadastrar(`/categorias`, categoria, setCategoria)
-                alert("O categoria foi cadastrada com sucesso!")
-            } catch (error:any) {
-                    alert('Erro ao cadastrar categoria.')
-                }
-            }
+      {/* CARD */}
+      <div className="relative z-10 w-full max-w-md backdrop-blur-xl rounded-3xl px-10 py-12">
 
-            retornar()
-        }
+        <h1 className="text-3xl font-extrabold text-[#1E3A8A] text-center mb-8">
+          {id === undefined ? "Cadastrar Categoria" : "Editar Categoria"}
+        </h1>
 
-       
+        <form onSubmit={gerarNovaCategoria} className="flex flex-col gap-6">
 
-    return(
-        <div className="bg-gradient-to-br from-blue-600 via-blue-500 to-emerald-400 p-8">
-        <div className="container flex flex-col items-center justify-center mx-auto">
-            <h1 className="text-lg text-center my-8 font-semibold">
-                {id === undefined ? 'Cadastrar Categoria' : 'Editar Categoria'}
-            </h1>  
-            <form className="w-1/2 flex flex-col gap-4"
-                onSubmit={gerarNovaCategoria}>
-                <div className="flex flex-col gap-2">
-                    <label  className="font-semibold" htmlFor="descricao">Categoria</label>
-                    <input
-                        type="text"
-                        name="descricao"
-                        placeholder="Descrição da categoria"
-                        className="border-2 border-slate-700 rounded p-2 bg-white"
-                        value={categoria.descricao}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                    />
-                </div>
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="descricao"
+              className="text-sm font-bold text-[#1E3A8A]"
+            >
+              Categoria
+            </label>
+            <input
+              type="text"
+              name="descricao"
+              placeholder="Digite a descrição da categoria"
+              className="
+                w-full rounded-lg p-3
+                border border-white/60
+                bg-white/70 backdrop-blur
+                focus:outline-none focus:ring-2 focus:ring-[#F37021]
+                text-[#1E3A8A]
+              "
+              value={categoria.descricao || ""}
+              onChange={atualizarEstado}
+              required
+            />
+          </div>
 
-                <button
-                    className="rounded text-slate-100 bg-sky-400
-                        hover:bg-sky-800 w-1/2 py-2 mx-auto block"
-                    type="submit">
-                        <span>{id === undefined ? 'Cadastrar' : 'Atualizar' }</span>
-                </button>
-            </form>
+          <button
+            type="submit"
+            className="w-full py-3 rounded-full bg-[#F37021] hover:bg-[#d65d18] text-white font-black flex justify-center items-center transition"
             
-        </div>
-        </div>
-    )
+          >
+            {id === undefined ? "Cadastrar" : "Atualizar"}
+          </button>
 
+          <button
+            type="button"
+            onClick={retornar}
+            className="
+              text-sm font-bold text-[#1E3A8A]
+              hover:underline mt-2
+            "
+          >
+            Voltar para categorias
+          </button>
+
+        </form>
+      </div>
+    </section>
+  );
 }
 
-export default FormCategorias
-
-
-
+export default FormCategorias;

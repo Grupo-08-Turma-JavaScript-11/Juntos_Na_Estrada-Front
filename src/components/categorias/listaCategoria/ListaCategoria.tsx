@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CardCategoria from "../cardCategoria/CardCategoria";
 import type Categoria from "../../../models/Categoria";
 import { buscar } from "../../../service/Service";
+import { Link } from "react-router-dom";
 
 function ListaCategoria() {
   const [categorias, setCategoria] = useState<Categoria[]>([]);
@@ -32,7 +33,7 @@ function ListaCategoria() {
       <div className="absolute top-1/2 right-0 h-[420px] w-[420px] rounded-full bg-[#1E3A8A]/10 blur-[140px]" />
 
       {/* CARD CONTAINER */}
-      <div className="w-full max-w-6xl backdrop-blur-md rounded-3xl p-8 sm:p-12">
+      <div className="w-full max-w-6xl grid items-center backdrop-blur-md rounded-3xl p-8 sm:p-12">
 
         {/* TÍTULO */}
         <h1 className="text-4xl font-black text-[#1E3A8A] text-center ">
@@ -53,9 +54,11 @@ function ListaCategoria() {
             Nenhuma categoria cadastrada.
           </p>
         )}
-
       </div>
+        
+    
       </div>
+      
 
   );
 }
