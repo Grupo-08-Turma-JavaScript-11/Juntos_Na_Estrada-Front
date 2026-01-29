@@ -46,7 +46,7 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
         </Link>
 
         <Link
-          to={`/deletarcategoria/${categoria.id}`}
+          to={`/deletarcategorias/${categoria.id}`}
           className="px-3 py-1.5 text-sm rounded-lg bg-red-500 text-white            
             hover:bg-red-600 transition">
           Excluir

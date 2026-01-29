@@ -1,11 +1,11 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
-import type Categorias from "../../../models/Categoria";
+import type Categoria from "../../../models/Categoria";
 import { useNavigate, useParams } from "react-router-dom";
 import { atualizar, buscar, cadastrar } from "../../../service/Service";
 
 function FormCategorias() {
 
-    const [categoria, setCategoria] = useState<Categorias>({} as Categorias)
+    const [categoria, setCategoria] = useState<Categoria>({} as Categoria)
 
     const navigate = useNavigate()
 
@@ -13,7 +13,7 @@ function FormCategorias() {
 
     async function buscarPorId(id: string) {
         try{
-            await buscar(`/categorias/:${id}`, setCategoria)
+            await buscar(`/categorias/${id}`, setCategoria)
         }catch (error: any){
             if (error.toString().includes('404')){
                 alert("Categoria não encontrado!")
@@ -44,7 +44,7 @@ function FormCategorias() {
 
         if (id !== undefined){
             try{
-                await atualizar(`/categorias/${id}`, categoria, setCategoria)
+                await atualizar(`/categorias`, categoria, setCategoria)
                 alert("O Categoria foi atualizado com sucesso!")
             }catch (error: any) {
                 if (error.toString().includes('403')){
