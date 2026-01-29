@@ -41,7 +41,7 @@ function ListarCaronas() {
         {/* TÍTULO */}
         <div className="text-center max-w-2xl mb-14 px-4">
           <h1 className="text-4xl md:text-5xl font-black text-[#1E3A8A] mb-3">
-            Minhas Caronas
+            Minhas Viagens
           </h1>
           <p className="text-base md:text-lg text-[#1E3A8A]/80">
             Gerencie e acompanhe suas caronas em um só lugar 🚗

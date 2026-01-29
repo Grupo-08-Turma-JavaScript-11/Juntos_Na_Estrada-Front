@@ -3,41 +3,73 @@ import type Carona from "../../../models/Carona";
 import MapCard from "../../mapa/cardmapa/CardMapa";
 import { Link } from "react-router-dom";
 
-
 interface CardCaronaProps {
   carona: Carona;
 }
+
 function CardCarona({ carona }: CardCaronaProps) {
-
-
-
   return (
-    <>
-
-    <div className="flex flex-col rounded-2xl w-100 h-90 bg-[#ffffff] shadow-xl">
-        
-      <MapCard />
-    
-        <div className="flex flex-col p-4">
-          <div className="text-2xl font-bold flex justify-between text-[#374151] pb-3">
-            <span>{carona.usuario.nome.substring(0, 12)} - {carona.categoria.descricao}</span>
-            <Link to={`/editarcaronas/${carona.id}`}><PencilSimpleIcon size={20} /></Link>
-            
-          </div>
-          <div className=" text-lg   text-[#374151]">
-            <p>Destino: {carona.enderecoDestino}</p>
-            <p>Vagas disponiveis: {carona.vagas} </p>
-            <p>Tempo de viagem: {carona.tempo} </p>
-            
-          </div>
-          <div className="flex justify-center pt-5">
-            <button className="bg-[#7e22ce] text-[#ffffff] w-32  font-bold text-base  p-2 rounded-lg hover:bg-purple-800 active:scale-95 transition-transform transform">
-              Mais detalhes
-            </button>
-          </div>
-        </div>
+    <div
+      className="
+        w-full max-w-sm
+        flex flex-col overflow-hidden
+        rounded-3xl
+        bg-white/80 backdrop-blur-md
+        border border-white/40
+        shadow-xl
+        transition-all duration-300
+        hover:-translate-y-1 hover:shadow-2xl
+      "
+    >
+      {/* MAPA */}
+      <div className="h-48 w-full">
+        <MapCard />
       </div>
-    </>
+
+      {/* CONTEÚDO */}
+      <div className="flex flex-col gap-4 p-5">
+
+        {/* TÍTULO + EDITAR */}
+        <div className="flex justify-between items-center">
+          <h3 className="text-lg font-extrabold text-[#1E3A8A] truncate">
+            {carona.usuario.nome.substring(0, 12)} • {carona.categoria.descricao}
+          </h3>
+
+          <Link
+            to={`/editarcaronas/${carona.id}`}
+            className="text-[#1E3A8A] hover:text-[#F37021] transition"
+            title="Editar carona"
+          >
+            <PencilSimpleIcon size={22} />
+          </Link>
+        </div>
+
+        {/* INFORMAÇÕES */}
+        <div className="text-sm text-[#1E3A8A]/80 space-y-1">
+          <p><strong>Destino:</strong> {carona.enderecoDestino}</p>
+          <p><strong>Vagas:</strong> {carona.vagas}</p>
+          <p><strong>Tempo:</strong> {carona.tempo}</p>
+        </div>
+
+        {/* BOTÃO */}
+        <div className="pt-4 flex justify-center">
+          <button
+            className="
+              rounded-full bg-[#F37021]
+              px-6 py-2
+              text-white font-black text-sm
+              shadow-lg
+              hover:bg-[#d65d18]
+              transition-all
+              hover:-translate-y-0.5 active:scale-95
+            "
+          >
+            Mais detalhes
+          </button>
+        </div>
+
+      </div>
+    </div>
   );
 }
 

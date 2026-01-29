@@ -65,12 +65,12 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
           to={`/deletarcategorias/${categoria.id}`}
           className="
             px-8 py-8 text-sm  w-full rounded-full
-            bg-red-500 text-white font-semibold
-            hover:bg-red-600
-            transition
+            bg-[#F37021] text-white font-semibold
+            hover:bg-[#d65d18]
+            transition-all hover:-translate-y-1 active:scale-95
           "
         >
-          Excluir
+          Deletar
         </Link>
 
       </div>

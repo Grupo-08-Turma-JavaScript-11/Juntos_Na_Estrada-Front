@@ -1,78 +1,106 @@
-import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { buscar, deletar } from "../../../service/Service"
-import type Categoria from "../../../models/Categoria"
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { buscar, deletar } from "../../../service/Service";
+import type Categoria from "../../../models/Categoria";
 
+function DeletarCategoria() {
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
+  const [categoria, setCategoria] = useState<Categoria>({} as Categoria);
 
-function DeletarCategoria(){
-
-    const navigate = useNavigate()
-
-    const [categoria, setCategoria] = useState<Categoria>({} as Categoria)
-
-    const {id} =  useParams<{id: string}>()
-
-    async function buscarPorId(id: string){
-        try{
-            await buscar(`/categorias/${id}`, setCategoria)
-        } catch (error: any){
-            alert('Categoria não encontrada!')
-        }
+  async function buscarPorId(id: string) {
+    try {
+      await buscar(`/categorias/${id}`, setCategoria);
+    } catch {
+      alert("Categoria não encontrada!");
     }
+  }
 
-    useEffect(() => {
-        if (id !== undefined) {
-            buscarPorId(id)
-        }
-    }, [id])
+  useEffect(() => {
+    if (id) buscarPorId(id);
+  }, [id]);
 
-    async function deletarCategoria(){
-        try{
-            await deletar(`/categorias/${id}`)
-            alert("Categoria deletada com sucesso!")
-        } catch (error: any){
-            if (error.toString().includes('404')){
-                alert("Categoria não encontrada!")
-            }
-        }
-
-        retornar()  
-
-    }  
-
-    function retornar() {
-        navigate("/categorias")
+  async function deletarCategoria() {
+    try {
+      await deletar(`/categorias/${id}`);
+      alert("Categoria deletada com sucesso!");
+      retornar();
+    } catch {
+      alert("Erro ao deletar categoria.");
     }
+  }
 
-    return(
-        <div className="container w-1/3 mx-auto">
-            <h1 className="text-4x1 text-center my-4">Deletar Categoria</h1>
-            <p className="text-center font-semibold mb-4">
-                Voce tem certeza que deseja deletar esta Categoria?
-            </p>
-            <div className="border flex flex-col rounded-2x1 overflow-hidden justify-between">
-                <header
-                    className="py-2 px-6 bg-sky-600 text-white font-bold text-2x1">
-                    Categoria
-                </header>
-                <p className="p-8 text-3x1 bg-slate-200 h-full">{categoria.descricao}</p>
-                <div className="flex">
-                    <button
-                        className="text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2"
-                        onClick={retornar}>
-                        Não
-                    </button>
-                    <button
-                        className="w-full text-slate-100 bg-indigo-400
-                            hover:bg-indigo-600 flex items-center justify-center"
-                            onClick={deletarCategoria}>
-                            <span>Sim</span> 
-                    </button>
-                </div>
-            </div>
+  function retornar() {
+    navigate("/categorias");
+  }
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center px-6">
+
+      {/* FUNDO */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#F9A8D4] via-[#FDBA74] to-[#F37021]" />
+
+      {/* CARD */}
+      <div
+        className="
+          relative z-10 w-full max-w-xl
+          bg-white/80 backdrop-blur-md
+          border border-white/40
+          rounded-3xl shadow-2xl
+          p-8 flex flex-col gap-6
+        "
+      >
+        <h1 className="text-4xl font-extrabold text-center text-[#1E3A8A]">
+          Deletar Categoria
+        </h1>
+
+        <p className="text-center text-[#1E3A8A]/80 font-medium">
+          Você tem certeza que deseja deletar esta categoria?
+        </p>
+
+        {/* INFO */}
+        <div className="bg-white/70 rounded-xl p-6 text-center shadow">
+          <span className="text-2xl font-bold text-[#1E3A8A]">
+            🏷️ {categoria.descricao}
+          </span>
         </div>
-    )
+
+        {/* BOTÕES */}
+
+        
+
+        <div className="flex gap-4 mt-4">
+
+            <button
+                onClick={deletarCategoria}
+                className="
+                flex-1 rounded-full bg-[#F37021]
+                py-3 text-white font-black text-lg
+                shadow-lg hover:bg-[#d65d18]
+                transition-all hover:-translate-y-1 active:scale-95
+            "
+          >
+            Sim, deletar
+          </button>
+
+          <button
+            onClick={retornar}
+            className="
+              flex-1 rounded-full bg-[#1E3A8A]
+              py-3 text-white font-black text-lg
+              shadow-lg hover:bg-[#162c63]
+              transition-all hover:-translate-y-1 active:scale-95
+            "
+          >
+            Cancelar
+          </button>
+
+
+        </div>
+      </div>
+    </section>
+  );
 }
 
-export default DeletarCategoria
+export default DeletarCategoria;
