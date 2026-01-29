@@ -1,0 +1,116 @@
+@import 'tailwindcss';
+
+/* ================= SKY TRANSITION ================= */
+
+.sky-transition {
+  animation: skyCycle 16s linear infinite;
+  background: linear-gradient(#ffb347, #ffcc33);
+}
+
+@keyframes skyCycle {
+  0%   { background: linear-gradient(#ffb347, #ffcc33); }
+  40%  { background: linear-gradient(#ff7e5f, #feb47b); }
+  70%  { background: linear-gradient(#1c2541, #0b132b); }
+  100% { background: linear-gradient(#1c2541, #0b132b); }
+}
+
+/* ================= SUN & MOON ================= */
+
+.sun {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  width: 50px;
+  height: 50px;
+  background: #ffd93d;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(255,217,61,0.8);
+  animation: sunSet 16s linear infinite;
+}
+
+@keyframes sunSet {
+  0% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(120px); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.moon {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  width: 40px;
+  height: 40px;
+  background: #f1f1f1;
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(255,255,255,0.6);
+  opacity: 0;
+  animation: moonRise 16s linear infinite;
+}
+
+@keyframes moonRise {
+  0%, 50% { opacity: 0; transform: translateY(80px); }
+  70% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; }
+}
+
+/* ================= STARS ================= */
+
+.stars {
+  opacity: 0;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, white, transparent),
+    radial-gradient(1px 1px at 100px 80px, white, transparent),
+    radial-gradient(1px 1px at 200px 150px, white, transparent),
+    radial-gradient(1px 1px at 300px 40px, white, transparent),
+    radial-gradient(1px 1px at 400px 120px, white, transparent);
+  background-size: 500px 300px;
+  animation: starsFade 16s linear infinite, starsMove 40s linear infinite;
+}
+
+@keyframes starsFade {
+  0%, 50% { opacity: 0; }
+  70%, 100% { opacity: 1; }
+}
+
+@keyframes starsMove {
+  from { background-position: 0 0; }
+  to { background-position: -500px 0; }
+}
+
+/* ================= ROAD ================= */
+
+.road {
+  background: #333;
+}
+
+@keyframes roadMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-road {
+  animation: roadMove 50s linear infinite;
+}
+
+/* ================= DASHED LINE ================= */
+
+.dashed-line {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(255,255,255,0.6) 0px,
+    rgba(255,255,255,0.6) 40px,
+    transparent 40px,
+    transparent 80px
+  );
+}
+
+/* ================= KOMBI ================= */
+
+@keyframes driveRightToLeft {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-300px); }
+}
+
+.animate-drive-right {
+  animation: driveRightToLeft 8s linear infinite;
+}
