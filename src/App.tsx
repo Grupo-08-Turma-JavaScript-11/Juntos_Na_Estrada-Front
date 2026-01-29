@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import FormCategorias from "./components/categorias/formCategorias/FormCategorias";
@@ -9,18 +10,23 @@ import Cadastro from "./pages/cadastro/Cadastro";
 import Login from "./pages/login/Login";
 import ListaCategoria from "./components/categorias/listaCategoria/ListaCategoria";
 import SobreNos from "./pages/sobrenos/SobreNos";
+import Home from "./pages/home/Home";
+import Navbar from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
     <>
+    <ToastContainer />
       <BrowserRouter>
+        <Navbar />
         
         <Routes>
           <Route path="/cadastrarcategorias" element={<FormCategorias />} />
           <Route path="/categorias" element={<ListaCategoria />} />
           <Route path="/deletarcategorias/:id" element={<DeletarCategoria />} />
           <Route path="/editarcategorias/:id" element={<FormCategorias />} />
-          <Route path="/" element={<ListarCaronas />} />
+          <Route path="/" element={<Home />} />
           <Route path="/caronas" element={<ListarCaronas />} />
           <Route path="/cadastrarcaronas" element={<FormCarona />} />
           <Route path="/editarcaronas/:id" element={<FormCarona />} />
@@ -29,8 +35,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sobrenos" element={<SobreNos />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
+
+
   );
 
 }
