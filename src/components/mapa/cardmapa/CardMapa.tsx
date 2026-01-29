@@ -13,7 +13,7 @@ export function MapCard() {
   const position: [number, number] = [-23.55052, -46.633308];
 
   return (
-    <div className="rounded-2xl overflow-hidden h-40">
+    <div className="rounded-2xl overflow-hidden h-[70vh] w-full">
       <MapContainer center={position} zoom={16} className="h-full w-full">
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"

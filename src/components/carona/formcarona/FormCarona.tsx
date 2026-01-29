@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import type Carona from "../../../models/Carona";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import { ClipLoader } from "react-spinners";
+import DeletarCarona from "../deletarcarona/DeletarCarona";
+import ModalDeletarCarona from "../modaldeletarcarona/ModalDeletarCarona";
 
 function FormCarona() {
   const navigate = useNavigate();
@@ -88,12 +90,12 @@ function FormCarona() {
   return (
     <div className="container flex flex-col items-center justify-center mx-auto">
       <h1 className="text-4xl text-center my-8">
-        {id === undefined ? "Cadastrar Categoria" : "Editar Categoria"}
+        {id === undefined ? "Cadastrar Viagem" : "Editar Viagem"}
       </h1>
 
       <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovaCarona}>
         <div className="flex flex-col gap-2">
-          <label htmlFor="nome">Nome da Categoria</label>
+          <label htmlFor="nome">Nome da Viagem</label>
           <input
             type="text"
             placeholder="Qual o nome da sua Categoria"
@@ -104,7 +106,7 @@ function FormCarona() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="descricao">Descrição da Categoria</label>
+          <label htmlFor="descricao">Descrição da Viagem</label>
           <input
             type="text"
             placeholder="Descreva aqui sua Categoria"
@@ -126,6 +128,7 @@ function FormCarona() {
             <span>{id === undefined ? "Cadastrar" : "Atualizar"}</span>
           )}
         </button>
+        { id === undefined ? "" : <ModalDeletarCarona />}
       </form>
     </div>
   );

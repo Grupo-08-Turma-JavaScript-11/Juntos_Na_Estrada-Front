@@ -1,5 +1,8 @@
+import { PencilSimpleIcon } from "@phosphor-icons/react";
 import type Carona from "../../../models/Carona";
 import MapCard from "../../mapa/cardmapa/CardMapa";
+import { Link } from "react-router-dom";
+
 
 interface CardCaronaProps {
   carona: Carona;
@@ -16,8 +19,10 @@ function CardCarona({ carona }: CardCaronaProps) {
       <MapCard />
     
         <div className="flex flex-col p-4">
-          <div className="text-2xl font-bold   text-[#374151] pb-3">
-            Wesley - Tesla premium
+          <div className="text-2xl font-bold flex justify-between text-[#374151] pb-3">
+            <span>Wesley - Tesla premium</span>
+            <Link to={`/editarcaronas/${carona.id}`}><PencilSimpleIcon size={20} /></Link>
+            
           </div>
           <div className=" text-lg   text-[#374151]">
             <p>Destino: {carona.enderecoDestino}</p>
