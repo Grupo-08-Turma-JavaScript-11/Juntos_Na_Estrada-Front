@@ -1,117 +1,119 @@
 @import "tailwindcss";
 
-
-/* ================= SKY TRANSITION ================= */
-
-.sky-transition {
-  animation: skyCycle 16s linear infinite;
-  background: linear-gradient(#ffb347, #ffcc33);
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@keyframes skyCycle {
-  0%   { background: linear-gradient(#ffb347, #ffcc33); }
-  40%  { background: linear-gradient(#ff7e5f, #feb47b); }
-  70%  { background: linear-gradient(#1c2541, #0b132b); }
-  100% { background: linear-gradient(#1c2541, #0b132b); }
+/* footer */
+
+.footer {
+  background-color: #1e3a8a;
+  color: white;
+  width: 100%;
 }
 
-/* ================= SUN & MOON ================= */
+/* container das colunas do footer */
+.footer-top {
+  width: 100%;
+  padding: 30px;
 
-.sun {
-  position: absolute;
-  top: 40px;
-  left: 60px;
-  width: 50px;
-  height: 50px;
-  background: #ffd93d;
-  border-radius: 50%;
-  box-shadow: 0 0 30px rgba(255,217,61,0.8);
-  animation: sunSet 16s linear infinite;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
 }
 
-@keyframes sunSet {
-  0% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(120px); opacity: 0; }
-  100% { opacity: 0; }
+.footer-about,
+.footer-links,
+.footer-contact {
+  flex: 1;
 }
 
-.moon {
-  position: absolute;
-  top: 40px;
-  right: 60px;
-  width: 40px;
-  height: 40px;
-  background: #f1f1f1;
-  border-radius: 50%;
-  box-shadow: 0 0 25px rgba(255,255,255,0.6);
-  opacity: 0;
-  animation: moonRise 16s linear infinite;
+.footer p,
+.footer li {
+  font-size: 12px;
+  line-height: 1.5;
 }
 
-@keyframes moonRise {
-  0%, 50% { opacity: 0; transform: translateY(80px); }
-  70% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 1; }
+.footer ul {
+  list-style: none;
+  padding: 0;
 }
 
-/* ================= STARS ================= */
-
-.stars {
-  opacity: 0;
-  background-image:
-    radial-gradient(1px 1px at 20px 30px, white, transparent),
-    radial-gradient(1px 1px at 100px 80px, white, transparent),
-    radial-gradient(1px 1px at 200px 150px, white, transparent),
-    radial-gradient(1px 1px at 300px 40px, white, transparent),
-    radial-gradient(1px 1px at 400px 120px, white, transparent);
-  background-size: 500px 300px;
-  animation: starsFade 16s linear infinite, starsMove 40s linear infinite;
+.footer li {
+  margin-bottom: 6px;
 }
 
-@keyframes starsFade {
-  0%, 50% { opacity: 0; }
-  70%, 100% { opacity: 1; }
+.footer-contact {
+  text-align: right;
 }
 
-@keyframes starsMove {
-  from { background-position: 0 0; }
-  to { background-position: -500px 0; }
+.footer-bottom {
+  border-top: 1px solid #3b82f6;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
 }
 
-/* ================= ROAD ================= */
+/* navbar */
 
-.road {
-  background: #333;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: #1e3a8a;
+  color: white;
+}
+
+.logo {
+  font-size: 20px;
+}
+
+/* lista */
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+/* botões */
+
+.nav-links button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.nav-links button:hover {
+  text-decoration: underline;
+}
+
+@layer base {
+  body {
+    @apply m-0 p-0 box-border antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@keyframes drive {
+  0% { transform: translateX(-100px) scaleX(-1); }
+  100% { transform: translateX(500px) scaleX(-1); }
 }
 
 @keyframes roadMove {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-40px); }
+}
+
+.animate-drive {
+  animation: drive 8s linear infinite;
 }
 
 .animate-road {
-  animation: roadMove 2s linear infinite;
-}
-
-/* ================= DASHED LINE ================= */
-
-.dashed-line {
-  background-image: repeating-linear-gradient(
-    to right,
-    rgba(255,255,255,0.6) 0px,
-    rgba(255,255,255,0.6) 40px,
-    transparent 40px,
-    transparent 80px
-  );
-}
-
-/* ================= KOMBI ================= */
-
-@keyframes driveRightToLeft {
-  from { transform: translateX(100vw); }
-  to { transform: translateX(-300px); }
-}
-
-.animate-drive-right {
-  animation: driveRightToLeft 8s linear infinite;
+  animation: roadMove 1s linear infinite;
 }
