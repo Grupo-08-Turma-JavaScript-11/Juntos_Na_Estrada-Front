@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { buscar, deletar } from "../../../service/Service"
-import type Categoria from "../../../models/categoria/Categoria"
+import type Categoria from "../../../models/Categoria"
 
 
 

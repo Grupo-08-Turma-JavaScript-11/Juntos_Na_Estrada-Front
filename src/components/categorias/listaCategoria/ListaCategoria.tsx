@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type Categoria from "../../models/categoria/Categoria";
-import { buscar } from "../../service/Service";
-import CardCategoria from "../categorias/cardCategoria/CardCategoria";
+import CardCategoria from "../cardCategoria/CardCategoria";
+import type Categoria from "../../../models/Categoria";
+import { buscar } from "../../../service/Service";
 
 function ListaCategoria() {
 

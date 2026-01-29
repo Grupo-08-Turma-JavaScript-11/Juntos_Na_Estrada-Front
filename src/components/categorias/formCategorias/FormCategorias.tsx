@@ -1,5 +1,5 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
-import type Categorias from "../../../models/categoria/Categoria";
+import type Categorias from "../../../models/Categoria";
 import { useNavigate, useParams } from "react-router-dom";
 import { atualizar, buscar, cadastrar } from "../../../service/Service";
 
