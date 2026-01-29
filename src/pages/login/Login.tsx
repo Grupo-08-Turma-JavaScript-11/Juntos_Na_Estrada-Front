@@ -1,18 +1,14 @@
 import {
-  useContext,
-  useEffect,
   useState,
   type ChangeEvent,
   type FormEvent,
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
 import type Usuario from "../../models/Usuario";
 function Login() {
   const navigate = useNavigate();
 
   const [usuario, setUsuario] = useState<Usuario>({} as Usuario);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
@@ -62,7 +58,7 @@ function Login() {
             className="rounded bg-indigo-400 flex justify-center
                                    hover:bg-indigo-900 text-white w-1/2 py-2"
           >
-            {isLoading ? <ClipLoader color="ffffff" size={24} /> : <span>Entrar</span>}
+             <span>Entrar</span>
             
           </button>
 
