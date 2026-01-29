@@ -8,6 +8,7 @@ import DeletarCarona from "./components/carona/deletarcarona/DeletarCarona";
 import Cadastro from "./pages/cadastro/Cadastro";
 import Login from "./pages/login/Login";
 import ListaCategoria from "./components/categorias/listaCategoria/ListaCategoria";
+import SobreNos from "./pages/sobrenos/SobreNos";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/deletarcaronas/:id" element={<DeletarCarona />} />
           <Route path="/cadastrarusuario" element={<Cadastro />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/sobrenos" element={<SobreNos />} />
         </Routes>
       </BrowserRouter>
     </>
