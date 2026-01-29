@@ -54,7 +54,7 @@ function DeletarCarona({ onClose }: { onClose?: () => void }) {
         Você tem certeza de que deseja apagar a viagem a seguir?
       </p>
       <div className="border flex flex-col rounded-2xl overflow-hidden justify-between">
-        <header className="flex flex-col rounded-2xl h-100 bg-[#ffffff] shadow-xl">
+        <header className="flex flex-col rounded-2xl h-80 w-100 bg-[#ffffff] shadow-xl">
           <MapCard />
         </header>
         <p className="p-8 text-3xl b h-full">Origem: {carona.enderecoOrigem}</p>

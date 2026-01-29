@@ -1,6 +1,7 @@
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import DeletarCarona from "../deletarcarona/DeletarCarona";
+import {  TrashIcon } from "@phosphor-icons/react";
 
 function ModalDeletarCarona() {
   return (
@@ -11,7 +12,7 @@ function ModalDeletarCarona() {
             type="button"
             className="border rounded px-4 py-2 hover:bg-white hover:text-indigo-800"
           >
-            Deletar
+            <TrashIcon size={32} />
           </button>
         }
         modal
