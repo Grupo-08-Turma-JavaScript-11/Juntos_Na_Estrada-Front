@@ -32,7 +32,7 @@ export default function Navbar() {
           <li>
             <Link to="/cadastrarcaronas">
               <button className="hover:text-[#F37021] transition-colors text-lg font-bold whitespace-nowrap">
-                Solicitar Viagem
+                Cadastrar Viagem
               </button>
             </Link>
           </li>

@@ -29,8 +29,8 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2 text-sm font-bold text-white">
               <Link to="/cadastrarcategorias"><li className="hover:text-[#F37021] transition-colors cursor-pointer">Criar Categorias</li></Link>
-              <li className="hover:text-[#F37021] transition-colors cursor-pointer">Minhas Viagens</li>
-              <li className="hover:text-[#F37021] transition-colors cursor-pointer">Solicitar Viagem</li>
+              <Link to="/caronas"><li className="hover:text-[#F37021] transition-colors cursor-pointer">Minhas Viagens</li></Link>
+              <Link to="/cadastrarcaronas"><li className="hover:text-[#F37021] transition-colors cursor-pointer">Cadastrar Viagem</li></Link>
             </ul>
           </div>
 
